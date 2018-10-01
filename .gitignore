@@ -1,0 +1,7 @@
+TOKEN.txt
+ffmpeg.exe
+ffplay.exe
+ffprobe.exe
+.idea/
+venv/
+__pycache__
