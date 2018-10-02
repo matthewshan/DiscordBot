@@ -51,6 +51,20 @@ def rollCharacter():
     classList = ['Barbarian', 'Bard', 'Cleric', 'Druid', 'Fighter', 'Monk', 'Paladin',
                  'Ranger', 'Rogue', 'Sorcerer', 'Warlock', 'Wizard', 'Blood Hunter']
 
+    behaviorList = ['Lawful', 'Neutral', 'Chaotic']
+    moralList = ['Good', 'Neutral', 'Evil']
+
+    charBehavior = random.choice(behaviorList)
+    charMoral = random.choice(moralList)
+
+    charAlignment = str
+
+    if charBehavior == charMoral:
+        charAlignment = 'True Neutral'
+    else:
+        charAlignment = charBehavior+' '+charMoral
+
+
     charStrength = rollStats()
     charDex = rollStats()
     charCon = rollStats()
@@ -229,7 +243,8 @@ def rollCharacter():
           'Constitution: '+str(charCon)+'\n' +\
           'Intelligence: '+str(charInt)+'\n' +\
           'Wisdom: '+str(charWis)+'\n' +\
-          'Charisma: '+str(charChar)+'\n'
+          'Charisma: '+str(charChar)+'\n\n'+\
+          'Alignment: '+charAlignment
 
     return rtn
 
@@ -267,6 +282,8 @@ def rockPaperScissors(hand):
     if hand != 'scissors' or 'paper' or 'rock':
         return "¯\_(ツ)_/¯ I'm not familiar with the hand shape: "
 
+def checkDay():
+    return datetime.datetime.today().weekday()
 
 
 
