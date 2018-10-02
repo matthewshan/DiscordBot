@@ -1,6 +1,10 @@
+
 import datetime
 import decimal
 import random
+#TODO: Make this a class instead and keep everything in one file. One for all the content and one for running
+
+
 #
 # This function returns how much time remains in the Fall 2018 semester.
 # In terms of format, this should be applicable to any start/end date.
@@ -18,16 +22,15 @@ def percentFall2018():
     decimalDone = decimal.Decimal(percentDone) #Converting from float to decimal
 
     return str(round(decimalDone, 4)) #Converting from decimal to string
+
+
 #
 # This function rolls 4d6, and picks the highest 3.
 #
 def rollStats():
-    a = random.randint(1,6)
-    b = random.randint(1,6)
-    c = random.randint(1,6)
-    d = random.randint(1,6)
-
-    dice = [a, b, c, d]
+    dice = []
+    for n in range(4):
+        dice.append(random.randint(1,6))
 
     sorted_dice = sorted(dice, reverse=True)
 
@@ -36,6 +39,8 @@ def rollStats():
     d3 = sorted_dice[2]
 
     return d1+d2+d3
+
+
 #
 # This function contains a list of D&D 5th Edition Races and Classes
 # More importantly, it will "roll" a character with race, class, and appropriate statistic scores.
@@ -51,86 +56,76 @@ def rollCharacter():
     classList = ['Barbarian', 'Bard', 'Cleric', 'Druid', 'Fighter', 'Monk', 'Paladin',
                  'Ranger', 'Rogue', 'Sorcerer', 'Warlock', 'Wizard', 'Blood Hunter']
 
-    behaviorList = ['Lawful', 'Neutral', 'Chaotic']
-    moralList = ['Good', 'Neutral', 'Evil']
-
-    charBehavior = random.choice(behaviorList)
-    charMoral = random.choice(moralList)
-
-    charAlignment = str
-
-    if charBehavior == charMoral:
-        charAlignment = 'True Neutral'
-    else:
-        charAlignment = charBehavior+' '+charMoral
-
-
-    charStrength = rollStats()
+    charStr = rollStats()
     charDex = rollStats()
     charCon = rollStats()
     charInt = rollStats()
     charWis = rollStats()
-    charChar = rollStats()
+    charCha = rollStats()
 
 
     charRace = random.choice(raceList)
     charClass = random.choice(classList)
 
-#############################################################
-# From here until the next block is code for race modifiers.#
-#############################################################
-    if charRace == 'Aarakocra':
-        charDex += 2
-        charWis += 1
-    if charRace == 'Aasimar':
-        charChar += 2
-    if charRace == 'Bugbear':
-        charStrength += 2
-        charDex += 1
-    if charRace == 'Centaur':
-        charStrength += 2
-        charWis += 1
+
+    #############################################################
+    # From here until the next block is code for race modifiers.#
+    #############################################################
+
+    races = {
+		'Aarakocra':{'str': 0,'dex': 2,'con': 0, 'int': 0, 'wis': 1, 'cha': 0},
+        'Aasimar':{'str': 0, 'dex': 0, 'con': 0, 'int': 0, 'wis': 0, 'cha': 2},
+        'Bugbear':{'str': 2, 'dex': 1, 'con': 0, 'int': 0, 'wis': 0, 'cha': 0},
+        'Centaur':{'str': 2, 'dex': 0, 'con': 0, 'wis': 1, 'cha': 0},
+        'Changeling':{'str': 0, 'dex': 0, 'con': 0, 'int': 0, 'wis': 0, 'cha': 2},
+        'Dragonborn':{'str': 2, 'dex': 0, 'con': 0, 'int': 0, 'wis': 0, 'cha': 1},
+        'Dwarf':{'str': 0, 'dex': 0, 'con': 2, 'wis': 0, 'cha': 0},
+        'Elf':{'str': 0, 'dex': 2, 'con': 0, 'int': 0, 'wis': 0, 'cha': 0},
+        'Feral Tiefling':{'str': 0, 'dex': 2, 'con': 0, 'int': 1, 'wis': 0, 'cha': 0},
+        'Firbolg':{'str': 1, 'dex': 0, 'con': 0, 'int': 0, 'wis': 2, 'cha': 0},
+        'Gith':{'str': 0, 'dex': 0, 'con': 0, 'int': 1, 'wis': 0, 'cha': 0},
+        'Gnome':{'str': 0, 'dex': 0, 'con': 0, 'int': 2, 'wis': 0, 'cha': 0},
+        'Goblin':{'str': 0, 'dex': 2, 'con': 1, 'int': 0, 'wis': 0, 'cha': 0},
+        'Goliath':{'str': 2, 'dex': 0, 'con': 1, 'int': 0, 'wis': 0, 'cha': 0},
+        'Half-Elf':{'str': 0, 'dex': 0, 'con': 0, 'int': 0, 'wis': 0, 'cha': 2},
+        'Halfling':{'str': 0, 'dex': 2, 'con': 0, 'int': 0, 'wis': 0, 'cha': 0},
+        'Human':{'str': 1, 'dex': 1, 'con': 1, 'int': 1, 'wis': 1, 'cha': 1},
+        'Kalashtar':{'str': 0, 'dex': 0, 'con': 0, 'int': 0, 'wis': 1, 'cha': 1},
+        'Kenku':{'str': 0, 'dex': 2, 'con': 0, 'int': 0, 'wis': 1, 'cha': 0},
+        'Kobold':{'str': -2, 'dex': 2, 'con': 0, 'int': 0, 'wis': 0, 'cha': 0},
+        'Lizardfolk':{'str': 0, 'dex': 0, 'con': 2, 'int': 0, 'wis': 1, 'cha': 0},
+        'Loxodon':{'str': 0, 'dex': 0, 'con': 2, 'int': 0, 'wis': 1, 'cha': 0},
+        'Minotaur':{'str': 2, 'dex': 0, 'con': 1, 'int': 0, 'wis': 0, 'cha': 0},
+        'Orc':{'str': 2, 'dex': 0, 'con': 1, 'int': -1, 'wis': 0, 'cha': 0},
+        'Shifter':{'str': 0, 'dex': 1, 'con': 0, 'int': 0, 'wis': 0, 'cha': 0},
+        'Simic Hybrid':{'str': 0, 'dex': 0, 'con': 2, 'int': 0, 'wis': 0, 'cha': 0},
+        'Tabaxi':{'str': 0, 'dex': 2, 'con': 0, 'int': 0, 'wis': 0, 'cha': 1},
+        'Tiefling':{'str': 0, 'dex': 2, 'con': 0, 'int': 1, 'wis': 0, 'cha': 0},
+        'Tortle':{'str': 2, 'dex': 0, 'con': 0, 'int': 0, 'wis': 1, 'cha': 0},
+        'Triton':{'str': 1, 'dex': 0, 'con': 1, 'int': 0, 'wis': 0, 'cha': 1},
+        'Vedalken':{'str': 0, 'dex': 0, 'con': 0, 'int': 2, 'wis': 1, 'cha': 0},
+        'Viashino':{'str': 1, 'dex': 2, 'con': 0, 'int': 0, 'wis': 0, 'cha': 0},
+        'Warforged':{'str': 0, 'dex': 0, 'con': 1, 'int': 0, 'wis': 0, 'cha': 0},
+        'Yuan-ti Pureblood':{'str': 0, 'dex': 0, 'con': 0, 'int': 1, 'wis': 0, 'cha': 2}
+	}
+
+    charStr += races[charRace]['str']
+    charDex += races[charRace]['dex']
+    charCon += races[charRace]['con']
+    charWis += races[charRace]['wis']
+    charCha += races[charRace]['cha']
+
     if charRace == 'Changeling':
-        charChar += 2
-
         choice = random.randint(1,2)
-
         if choice == 1:
             charDex += 1
         else:
             charInt += 1
-    if charRace == 'Dragonborn':
-        charStrength += 2
-        charChar += 1
-    if charRace == 'Dwarf':
-        charCon += 2
-    if charRace == 'Elf':
-        charDex += 2
-    if charRace == 'Feral Tiefling':
-        charDex += 2
-        charInt += 1
-    if charRace == 'Firbolg':
-        charWis += 2
-        charStrength += 1
-    if charRace == 'Genasi':
-        charCon += 2
-    if charRace == 'Gith':
-        charInt += 1
-    if charRace == 'Gnome':
-        charInt += 2
-    if charRace == 'Goblin':
-        charDex += 2
-        charCon += 1
-    if charRace == 'Goliath':
-        charStrength += 2
-        charCon += 1
-    if charRace == 'Half-Elf':
-        charChar += 2
-
+    elif charRace == 'Half-Elf':
         for x in range(2):  #There are two points to assign, so the loop iterates twice
             choice = random.randint(1,5) #Randomly assigns an ability to increment
             if choice == 1:
-                charStrength += 1
+                charStr += 1
             if choice == 2:
                 charDex += 1
             if choice == 3:
@@ -139,28 +134,10 @@ def rollCharacter():
                 charInt += 1
             if choice == 5:
                 charDex += 1
-    if charRace == 'Halfling':
-        charDex += 2
-    if charRace == 'Half-Orc':
-        charStrength += 2
-        charCon += 1
-    if charRace == 'Hobgoblin':
-        charCon += 2
-        charInt += 1
-    if charRace == 'Human':
-        charStrength += 1
-        charDex += 1
-        charCon += 1
-        charInt += 1
-        charWis += 1
-        charChar += 1
-    if charRace == 'Kalashtar':
-        charChar +=1
-        charWis +=1
-
+    elif charRace == 'Kalashtar':
         choice = random.randint(1, 6)  # Randomly assigns an ability to increment
         if choice == 1:
-            charStrength += 1
+            charStr += 1
         if choice == 2:
             charDex += 1
         if choice == 3:
@@ -170,83 +147,38 @@ def rollCharacter():
         if choice == 5:
             charDex += 1
         if choice == 6:
-            charChar += 1
-
-    if charRace == 'Kenku':
-        charDex += 2
-        charWis += 1
-    if charRace == 'Kobold':
-        charDex += 2
-        charStrength -= 2
-    if charRace == 'Lizardfolk':
-        charCon += 2
-        charWis += 1
-    if charRace == 'Loxodon':
-        charCon += 2
-        charWis += 1
-    if charRace == 'Minotaur':
-        charStrength += 2
-        charCon += 1
-    if charRace == 'Orc':
-        charStrength += 2
-        charCon += 1
-        charInt -= 2
-    if charRace == 'Shifter':
-        charDex += 1
-    if charRace == 'Simic Hybrid':
-        charCon += 2
-
+            charCha += 1
+    elif charRace == 'Simic Hybrid':
         choice = random.randint(1, 5)  # Randomly assigns an ability to increment
         if choice == 1:
-            charStrength += 1
+            charStr += 1
         if choice == 2:
             charDex += 1
         if choice == 3:
-            charChar += 1
+            charCha += 1
         if choice == 4:
             charInt += 1
         if choice == 5:
             charDex += 1
-    if charRace == 'Tabaxi':
-        charDex += 2
-        charChar += 1
-    if charRace == 'Tiefling':
-        charChar += 2
-        charInt += 1
-    if charRace == 'Tortle':
-        charStrength += 2
-        charWis += 1
-    if charRace == 'Triton':
-        charStrength += 1
-        charCon += 1
-        charChar += 1
-    if charRace == 'Vedalken':
-        charInt += 2
-        charWis += 1
-    if charRace == 'Viashino':
-        charDex += 2
-        charStrength += 1
-    if charRace == 'Warforged':
-        charCon += 1
-    if charRace == 'Yuan=ti Pureblood':
-        charChar += 2
-        charInt += 1
 
-###########################
-# Race modifiers end here.#
-###########################
+    ###########################
+    # Race modifiers end here.#
+    ###########################
+
+	#Str, Dex, Con, Int, Wis, Cha
 
     rtn = 'Race: '+str(charRace)+'\n' +\
           'Class: '+str(charClass)+'\n\n' +\
-          'Strength: '+str(charStrength)+'\n' +\
+          'Strength: '+str(charStr)+'\n' +\
           'Dexterity: '+str(charDex)+'\n' +\
           'Constitution: '+str(charCon)+'\n' +\
           'Intelligence: '+str(charInt)+'\n' +\
           'Wisdom: '+str(charWis)+'\n' +\
-          'Charisma: '+str(charChar)+'\n\n'+\
-          'Alignment: '+charAlignment
+          'Charisma: '+str(charCha)+'\n'
 
     return rtn
+
+
 
 def rockPaperScissors(hand):
 
@@ -281,11 +213,4 @@ def rockPaperScissors(hand):
 
     if hand != 'scissors' or 'paper' or 'rock':
         return "¯\_(ツ)_/¯ I'm not familiar with the hand shape: "
-
-def checkDay():
-    return datetime.datetime.today().weekday()
-
-
-
-
 

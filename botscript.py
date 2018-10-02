@@ -1,3 +1,4 @@
+
 # Work with Python 3.6
 import discord
 import botlogic
@@ -136,3 +137,4 @@ async def on_ready():
     print('------')
 
 client.run(TOKEN)
+
