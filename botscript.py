@@ -5,6 +5,8 @@ import urllib.parse
 import urllib.request
 import bs4
 
+#TODO: Make this a class instead and keep everything in one file. One for all the content and one for running
+
 file = open("TOKEN.txt")
 TOKEN = file.readline()
 
