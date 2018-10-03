@@ -1,3 +1,4 @@
+
 import datetime
 import decimal
 import random
@@ -55,6 +56,21 @@ def rollCharacter():
     classList = ['Barbarian', 'Bard', 'Cleric', 'Druid', 'Fighter', 'Monk', 'Paladin',
                  'Ranger', 'Rogue', 'Sorcerer', 'Warlock', 'Wizard', 'Blood Hunter']
 
+    charAlignment = str
+
+    moralList = ['Lawful', 'Neutral', 'Chaotic']
+    alignList= ['Good', 'Neutral', 'Evil']
+
+    charMoral = random.choice(moralList)
+    charAlign = random.choice(alignList)
+
+    if charMoral == charAlign:
+        charAlignment = 'True Neutral'
+    else:
+        charAlignment = charMoral+" "+charAlign
+
+
+
     charStr = rollStats()
     charDex = rollStats()
     charCon = rollStats()
@@ -72,7 +88,7 @@ def rollCharacter():
     #############################################################
 
     races = {
-		'Aarakocra':{'str': 0,'dex': 2,'con': 0, 'int': 0, 'wis': 1, 'cha': 0},
+    	'Aarakocra':{'str': 0,'dex': 2,'con': 0, 'int': 0, 'wis': 1, 'cha': 0},
         'Aasimar':{'str': 0, 'dex': 0, 'con': 0, 'int': 0, 'wis': 0, 'cha': 2},
         'Bugbear':{'str': 2, 'dex': 1, 'con': 0, 'int': 0, 'wis': 0, 'cha': 0},
         'Centaur':{'str': 2, 'dex': 0, 'con': 0, 'wis': 1, 'cha': 0},
@@ -82,12 +98,15 @@ def rollCharacter():
         'Elf':{'str': 0, 'dex': 2, 'con': 0, 'int': 0, 'wis': 0, 'cha': 0},
         'Feral Tiefling':{'str': 0, 'dex': 2, 'con': 0, 'int': 1, 'wis': 0, 'cha': 0},
         'Firbolg':{'str': 1, 'dex': 0, 'con': 0, 'int': 0, 'wis': 2, 'cha': 0},
+        'Genasi':{'str': 0, 'dex': 0, 'con': 2, 'int': 0, 'wis': 0, 'cha': 0},
         'Gith':{'str': 0, 'dex': 0, 'con': 0, 'int': 1, 'wis': 0, 'cha': 0},
         'Gnome':{'str': 0, 'dex': 0, 'con': 0, 'int': 2, 'wis': 0, 'cha': 0},
         'Goblin':{'str': 0, 'dex': 2, 'con': 1, 'int': 0, 'wis': 0, 'cha': 0},
         'Goliath':{'str': 2, 'dex': 0, 'con': 1, 'int': 0, 'wis': 0, 'cha': 0},
         'Half-Elf':{'str': 0, 'dex': 0, 'con': 0, 'int': 0, 'wis': 0, 'cha': 2},
+        'Half-Orc':{'str': 2, 'dex': 0, 'con': 1, 'int': 0, 'wis': 0, 'cha': 0},
         'Halfling':{'str': 0, 'dex': 2, 'con': 0, 'int': 0, 'wis': 0, 'cha': 0},
+        'Hobgoblin':{'str': 0, 'dex': 0, 'con': 2, 'int': 1, 'wis': 0, 'cha': 0},
         'Human':{'str': 1, 'dex': 1, 'con': 1, 'int': 1, 'wis': 1, 'cha': 1},
         'Kalashtar':{'str': 0, 'dex': 0, 'con': 0, 'int': 0, 'wis': 1, 'cha': 1},
         'Kenku':{'str': 0, 'dex': 2, 'con': 0, 'int': 0, 'wis': 1, 'cha': 0},
@@ -173,7 +192,8 @@ def rollCharacter():
           'Constitution: '+str(charCon)+'\n' +\
           'Intelligence: '+str(charInt)+'\n' +\
           'Wisdom: '+str(charWis)+'\n' +\
-          'Charisma: '+str(charCha)+'\n'
+          'Charisma: '+str(charCha)+'\n\n'+\
+          'Alignment: '+charAlignment
 
     return rtn
 
@@ -212,3 +232,6 @@ def rockPaperScissors(hand):
 
     if hand != 'scissors' or 'paper' or 'rock':
         return "¯\_(ツ)_/¯ I'm not familiar with the hand shape: "
+def checkDay():
+    return datetime.datetime.today().weekday()
+

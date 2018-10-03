@@ -1,11 +1,11 @@
+
 # Work with Python 3.6
 import discord
 import botlogic
 import urllib.parse
+import youtube_dl
 import urllib.request
 import bs4
-
-#TODO: Make this a class instead and keep everything in one file. One for all the content and one for running
 
 file = open("TOKEN.txt")
 TOKEN = file.readline()
@@ -32,7 +32,7 @@ async def on_message(message):
         msg = 'Here is your DnD character! \n\n'+botlogic.rollCharacter().format(message)
         await client.send_message(message.channel, msg)
 
-    if message.content.startswith('!dedede'):
+    if message.content.startswith('!kingdedede'):
         await playAudio(message.author, 'https://www.youtube.com/watch?v=-KOlVl77SkQ&t=')
 
     if message.content.startswith('!denver'):
@@ -63,10 +63,6 @@ async def on_message(message):
         await client.send_message(message.channel, reply)
 
 
-
-
-
-
 def searchVideo(request):
 
     search = urllib.parse.quote(request)
@@ -79,9 +75,6 @@ def searchVideo(request):
     for anchor in soup.findAll('a', href=True): #Iterate through links found
         if(anchor['href']).startswith('/watch?v') and 'list=' not in anchor['href']: #Find "top" video and ignore playlists
             return ('https://www.youtube.com'+anchor['href'])
-
-
-
 
 async def playAudio(author, url):
     await leave(author)
@@ -107,11 +100,41 @@ async def play(author, url):
 
 @client.event
 async def on_ready():
+    print('------')
     print('Logged in as')
     print(client.user.name)
     print(client.user.id)
     print('------')
 
+    if botlogic.checkDay() == 6:
+        with open('dedede.jpg', 'rb') as f:
+            await client.edit_profile(avatar=f.read())
+            await client.edit_profile(username='King DeDeDe')
+            print('King DeDeDe has been selected')
 
+    if botlogic.checkDay() == 0:
+        with open('donkey.jpg', 'rb') as f:
+            await client.edit_profile(avatar=f.read())
+            await client.edit_profile(username='Robo Kong')
+            print('Donkey Kong has been selected')
+
+    if botlogic.checkDay() == 2:
+        with open('diddy.jpg', 'rb') as f:
+            await client.edit_profile(avatar=f.read())
+            await client.edit_profile(username='Diddy Droid')
+            print('Diddy Kong has been selected')
+
+    if botlogic.checkDay() == 4:
+        with open('senorgw.jpg', 'rb') as f:
+            await client.edit_profile(avatar=f.read())
+            await client.edit_profile(username='Señor Game&Bot')
+            print('Game and Watch has been selected')
+    if botlogic.checkDay() == 1:
+        with open('duckhunt.jpg', 'rb') as f:
+            await client.edit_profile(avatar=f.read())
+            await client.edit_profile(username='Duck Bot')
+            print('Duck Hunt has been selected')
+    print('------')
 
 client.run(TOKEN)
+
