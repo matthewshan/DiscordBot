@@ -6,6 +6,7 @@ import urllib.parse
 import youtube_dl
 import urllib.request
 import bs4
+import random
 
 file = open("TOKEN.txt")
 TOKEN = file.readline()
@@ -13,6 +14,15 @@ TOKEN = file.readline()
 client = discord.Client()
 
 players = {}
+
+avatars = {
+    'DeDeDe':{'image': 'dedede.jpg', 'name': 'King BeepBeepBeep'},
+    'Diddy':{'image': 'diddy.jpg', 'name': 'Diddy Droid'},
+    'Donkey':{'image': 'donkey.jpg', 'name': 'Robo Kong'},
+    'Duck Hunt':{'image': 'duckhunt.jpg', 'name': 'Duck Bot'},
+    'Game&Watch':{'image': 'senorgw.jpg', 'name': 'Señor Game&Watch'},
+    'Kirby':{'image': 'kirby.jpg', 'name': 'Kirbit'}
+}
 
 @client.event
 async def on_message(message):
@@ -105,6 +115,7 @@ async def on_ready():
     print(client.user.name)
     print(client.user.id)
     print('------')
+
 
     if botlogic.checkDay() == 6:
         with open('dedede.jpg', 'rb') as f:

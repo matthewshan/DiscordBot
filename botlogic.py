@@ -140,7 +140,7 @@ def rollCharacter():
         else:
             charInt += 1
     elif charRace == 'Half-Elf':
-        for x in range(2):  #There are two points to assign, so the loop iterates twice
+        for x in range(2): #There are two points to assign, so the loop iterates twice
             choice = random.randint(1,5) #Randomly assigns an ability to increment
             if choice == 1:
                 charStr += 1
