@@ -72,6 +72,10 @@ async def on_message(message):
 
         await client.send_message(message.channel, reply)
 
+    if message.content.startswith('hewwo?'):
+        msg = "https://i.kym-cdn.com/entries/icons/original/000/024/221/upload.png"
+        await client.send_message(message.channel, msg)
+
 
 def searchVideo(request):
 
@@ -136,7 +140,7 @@ async def on_ready():
             print('Diddy Kong has been selected')
 
     if botlogic.checkDay() == 4:
-        with open('senorgw.jpg', 'rb') as f:
+        with open('senorgw(nobueno).jpg', 'rb') as f:
             await client.edit_profile(avatar=f.read())
             await client.edit_profile(username='Señor Game&Bot')
             print('Game and Watch has been selected')
